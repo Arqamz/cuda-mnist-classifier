@@ -1,3 +1,10 @@
+bin/
+build/
+data/
+
+gmon.out
+perf.data
+
 *.i
 *.ii
 *.gpu
