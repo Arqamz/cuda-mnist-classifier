@@ -19,8 +19,11 @@ OBJ_EXT = .o
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%$(SRC_EXT)=$(BUILD_DIR)/%.o)
 
+# Executable name
+EXEC_NAME = mnist
+
 # Final executable
-EXEC = $(BIN_DIR)/nn
+EXEC = $(BIN_DIR)/$(EXEC_NAME)
 
 # Targets
 all: clean build run profile
@@ -49,7 +52,7 @@ gprof: $(EXEC)
 	@mkdir -p $(PROFILE_DIR) $(PROFILE_DIR)/graphs
 	$(CC) $(CFLAGS) -pg $(SRC_FILES) -o $(EXEC) $(LDFLAGS)
 	$(EXEC)
-	# It never gets generated in the profile dir
+	# Move this gmon.out to the profile dir
 	mv gmon.out $(PROFILE_DIR)/
 	gprof $(EXEC) $(PROFILE_DIR)/gmon.out > $(PROFILE_DIR)/analysis.txt
 	gprof2dot -f prof $(PROFILE_DIR)/analysis.txt | dot -Tpng -o $(PROFILE_DIR)/graphs/gprof_analysis.png

@@ -3,20 +3,20 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls   s/call   s/call  name    
- 54.14     20.78    20.78   190000     0.00     0.00  forward
- 44.68     37.93    17.15   180000     0.00     0.00  backward
-  0.83     38.25     0.32        2     0.16     0.16  loadMNISTImages
-  0.16     38.31     0.06        1     0.06    36.95  train
-  0.08     38.34     0.03   190000     0.00     0.00  relu
-  0.08     38.37     0.03   190000     0.00     0.00  softmax
-  0.03     38.38     0.01                             _init
-  0.00     38.38     0.00        6     0.00     0.00  allocateMatrix
-  0.00     38.38     0.00        4     0.00     0.00  get_time
-  0.00     38.38     0.00        2     0.00     0.00  freeMatrix
-  0.00     38.38     0.00        2     0.00     0.00  loadMNISTLabels
-  0.00     38.38     0.00        1     0.00     0.00  createNetwork
-  0.00     38.38     0.00        1     0.00     1.10  evaluate
-  0.00     38.38     0.00        1     0.00     0.00  freeNetwork
+ 62.91     20.52    20.52   190000     0.00     0.00  forward
+ 35.93     32.24    11.72   180000     0.00     0.00  backward
+  0.98     32.56     0.32        2     0.16     0.16  loadMNISTImages
+  0.06     32.58     0.02   190000     0.00     0.00  relu
+  0.06     32.60     0.02        1     0.02    31.20  train
+  0.06     32.62     0.02                             _init
+  0.00     32.62     0.00   190000     0.00     0.00  softmax
+  0.00     32.62     0.00        6     0.00     0.00  allocateMatrix
+  0.00     32.62     0.00        4     0.00     0.00  get_time
+  0.00     32.62     0.00        2     0.00     0.00  freeMatrix
+  0.00     32.62     0.00        2     0.00     0.00  loadMNISTLabels
+  0.00     32.62     0.00        1     0.00     0.00  createNetwork
+  0.00     32.62     0.00        1     0.00     1.08  evaluate
+  0.00     32.62     0.00        1     0.00     0.00  freeNetwork
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -54,55 +54,55 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 0.03% of 38.38 seconds
+granularity: each sample hit covers 4 byte(s) for 0.03% of 32.62 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0    0.00   38.37                 main [1]
-                0.06   36.89       1/1           train [2]
-                0.00    1.10       1/1           evaluate [5]
+[1]     99.9    0.00   32.60                 main [1]
+                0.02   31.18       1/1           train [2]
+                0.00    1.08       1/1           evaluate [5]
                 0.32    0.00       2/2           loadMNISTImages [6]
                 0.00    0.00       2/2           loadMNISTLabels [13]
                 0.00    0.00       1/1           createNetwork [14]
                 0.00    0.00       1/1           freeNetwork [15]
 -----------------------------------------------
-                0.06   36.89       1/1           main [1]
-[2]     96.3    0.06   36.89       1         train [2]
-               19.69    0.03  180000/190000      forward [3]
-               17.15    0.00  180000/180000      backward [4]
-                0.03    0.00  180000/190000      softmax [8]
+                0.02   31.18       1/1           main [1]
+[2]     95.6    0.02   31.18       1         train [2]
+               19.44    0.02  180000/190000      forward [3]
+               11.72    0.00  180000/180000      backward [4]
+                0.00    0.00  180000/190000      softmax [9]
                 0.00    0.00       4/4           get_time [11]
 -----------------------------------------------
-                1.09    0.00   10000/190000      evaluate [5]
-               19.69    0.03  180000/190000      train [2]
-[3]     54.2   20.78    0.03  190000         forward [3]
-                0.03    0.00  190000/190000      relu [7]
+                1.08    0.00   10000/190000      evaluate [5]
+               19.44    0.02  180000/190000      train [2]
+[3]     63.0   20.52    0.02  190000         forward [3]
+                0.02    0.00  190000/190000      relu [7]
 -----------------------------------------------
-               17.15    0.00  180000/180000      train [2]
-[4]     44.7   17.15    0.00  180000         backward [4]
+               11.72    0.00  180000/180000      train [2]
+[4]     35.9   11.72    0.00  180000         backward [4]
 -----------------------------------------------
-                0.00    1.10       1/1           main [1]
-[5]      2.9    0.00    1.10       1         evaluate [5]
-                1.09    0.00   10000/190000      forward [3]
-                0.00    0.00   10000/190000      softmax [8]
+                0.00    1.08       1/1           main [1]
+[5]      3.3    0.00    1.08       1         evaluate [5]
+                1.08    0.00   10000/190000      forward [3]
+                0.00    0.00   10000/190000      softmax [9]
 -----------------------------------------------
                 0.32    0.00       2/2           main [1]
-[6]      0.8    0.32    0.00       2         loadMNISTImages [6]
+[6]      1.0    0.32    0.00       2         loadMNISTImages [6]
                 0.00    0.00       2/6           allocateMatrix [10]
 -----------------------------------------------
-                0.03    0.00  190000/190000      forward [3]
-[7]      0.1    0.03    0.00  190000         relu [7]
------------------------------------------------
-                0.00    0.00   10000/190000      evaluate [5]
-                0.03    0.00  180000/190000      train [2]
-[8]      0.1    0.03    0.00  190000         softmax [8]
+                0.02    0.00  190000/190000      forward [3]
+[7]      0.1    0.02    0.00  190000         relu [7]
 -----------------------------------------------
                                                  <spontaneous>
-[9]      0.0    0.01    0.00                 _init [9]
+[8]      0.1    0.02    0.00                 _init [8]
 -----------------------------------------------
-                0.00    0.00       2/6           createNetwork [14]
+                0.00    0.00   10000/190000      evaluate [5]
+                0.00    0.00  180000/190000      train [2]
+[9]      0.0    0.00    0.00  190000         softmax [9]
+-----------------------------------------------
                 0.00    0.00       2/6           loadMNISTImages [6]
                 0.00    0.00       2/6           loadMNISTLabels [13]
+                0.00    0.00       2/6           createNetwork [14]
 [10]     0.0    0.00    0.00       6         allocateMatrix [10]
 -----------------------------------------------
                 0.00    0.00       4/4           train [2]
@@ -214,8 +214,8 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [9] _init                   [3] forward                [13] loadMNISTLabels
+   [8] _init                   [3] forward                [13] loadMNISTLabels
   [10] allocateMatrix         [12] freeMatrix              [7] relu
-   [4] backward               [15] freeNetwork             [8] softmax
+   [4] backward               [15] freeNetwork             [9] softmax
   [14] createNetwork          [11] get_time                [2] train
    [5] evaluate                [6] loadMNISTImages

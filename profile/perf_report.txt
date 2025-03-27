@@ -3,144 +3,136 @@
 #
 # Total Lost Samples: 0
 #
-# Samples: 138K of event 'cycles:Pu'
-# Event count (approx.): 113823431177
+# Samples: 143K of event 'cycles:Pu'
+# Event count (approx.): 104190275527
 #
 # Children      Self  Command  Shared Object         Symbol                             
 # ........  ........  .......  ....................  ...................................
 #
-    96.94%     0.00%  nn       libc.so.6             [.] __libc_start_call_main
+    97.33%     0.00%  nn       libc.so.6             [.] __libc_start_call_main
             |
             ---__libc_start_call_main
                main
                |          
-               |--92.97%--train
+               |--93.33%--train
                |          |          
-               |          |--54.01%--forward
+               |          |--54.95%--forward
                |          |          
-               |           --38.55%--backward
+               |           --38.10%--backward
                |          
-               |--2.96%--evaluate
+               |--3.06%--evaluate
                |          |          
-               |           --2.94%--forward
+               |           --3.05%--forward
                |          
-                --0.54%--loadMNISTImages
+                --0.52%--loadMNISTImages
 
-    96.94%     0.00%  nn       nn                    [.] main
+    97.33%     0.00%  nn       nn                    [.] main
             |
             ---main
                |          
-               |--92.97%--train
+               |--93.33%--train
                |          |          
-               |          |--54.01%--forward
+               |          |--54.95%--forward
                |          |          
-               |           --38.55%--backward
+               |           --38.10%--backward
                |          
-               |--2.96%--evaluate
+               |--3.06%--evaluate
                |          |          
-               |           --2.94%--forward
+               |           --3.05%--forward
                |          
-                --0.54%--loadMNISTImages
+                --0.52%--loadMNISTImages
 
-    92.97%     0.09%  nn       nn                    [.] train
+    93.33%     0.06%  nn       nn                    [.] train
             |          
-             --92.87%--train
+             --93.26%--train
                        |          
-                       |--54.01%--forward
+                       |--54.95%--forward
                        |          
-                        --38.55%--backward
+                        --38.10%--backward
 
-    56.95%    56.52%  nn       nn                    [.] forward
+    58.00%    57.75%  nn       nn                    [.] forward
             |          
-             --56.52%--__libc_start_call_main
+             --57.75%--__libc_start_call_main
                        main
                        |          
-                       |--53.62%--train
+                       |--54.70%--train
                        |          forward
                        |          
-                        --2.90%--evaluate
+                        --3.04%--evaluate
                                   forward
 
-    38.55%    38.33%  nn       nn                    [.] backward
+    38.11%    38.01%  nn       nn                    [.] backward
             |          
-             --38.33%--__libc_start_call_main
+             --38.01%--__libc_start_call_main
                        main
                        |          
-                        --38.33%--train
-                                  |          
-                                   --38.32%--backward
+                        --38.01%--train
+                                  backward
 
-     2.96%     0.00%  nn       nn                    [.] evaluate
+     3.06%     0.00%  nn       nn                    [.] evaluate
             |          
-             --2.95%--evaluate
+             --3.06%--evaluate
                        |          
-                        --2.94%--forward
+                        --3.05%--forward
 
-     1.39%     1.39%  nn       [unknown]             [k] 0xffffffffa7801934
+     1.05%     0.98%  nn       libc.so.6             [.] _IO_fread
             |          
-             --0.91%--__libc_start_call_main
+             --0.83%--_IO_fread
+
+     0.95%     0.95%  nn       [unknown]             [k] 0xffffffffa7801934
+            |          
+             --0.56%--__libc_start_call_main
                        main
-                       |          
-                        --0.59%--train
 
-     1.18%     1.10%  nn       libc.so.6             [.] _IO_fread
+     0.91%     0.77%  nn       libc.so.6             [.] _IO_file_xsgetn
             |          
-             --0.92%--_IO_fread
+             --0.85%--_IO_file_xsgetn
 
-     0.95%     0.82%  nn       libc.so.6             [.] _IO_file_xsgetn
-            |          
-             --0.87%--_IO_file_xsgetn
-
-     0.65%     0.37%  nn       nn                    [.] loadMNISTImages
-     0.43%     0.01%  nn       libc.so.6             [.] _int_malloc
-     0.39%     0.31%  nn       libc.so.6             [.] _IO_sgetn
-     0.33%     0.26%  nn       libc.so.6             [.] __memmove_avx_unaligned_erms
-     0.18%     0.18%  nn       [unknown]             [k] 0xffffffffa78001c9
-     0.18%     0.00%  nn       [unknown]             [.] 0000000000000000
-     0.17%     0.00%  nn       libc.so.6             [.] read
-     0.16%     0.05%  nn       nn                    [.] fread@plt
-     0.11%     0.07%  nn       libc.so.6             [.] memcpy@@GLIBC_2.14@plt
-     0.10%     0.00%  nn       libc.so.6             [.] __profil_counter
-     0.10%     0.09%  nn       libm.so.6             [.] __ieee754_log_fma
-     0.10%     0.10%  nn       libc.so.6             [.] __mcount_internal
-     0.09%     0.08%  nn       libm.so.6             [.] __ieee754_exp_fma
-     0.07%     0.06%  nn       nn                    [.] relu
-     0.03%     0.03%  nn       libm.so.6             [.] exp@@GLIBC_2.29
+     0.62%     0.36%  nn       nn                    [.] loadMNISTImages
+     0.39%     0.02%  nn       libc.so.6             [.] _int_malloc
+     0.32%     0.24%  nn       libc.so.6             [.] _IO_sgetn
+     0.30%     0.24%  nn       libc.so.6             [.] __memmove_avx_unaligned_erms
+     0.17%     0.06%  nn       nn                    [.] fread@plt
+     0.11%     0.06%  nn       libc.so.6             [.] memcpy@@GLIBC_2.14@plt
+     0.10%     0.10%  nn       [unknown]             [k] 0xffffffffa78001c9
+     0.10%     0.00%  nn       [unknown]             [k] 0000000000000000
+     0.09%     0.09%  nn       libc.so.6             [.] __mcount_internal
+     0.09%     0.00%  nn       libc.so.6             [.] read
+     0.09%     0.08%  nn       libm.so.6             [.] __ieee754_log_fma
+     0.06%     0.06%  nn       nn                    [.] relu
+     0.06%     0.00%  nn       libc.so.6             [.] __profil_counter
+     0.05%     0.05%  nn       libm.so.6             [.] __ieee754_exp_fma
      0.03%     0.03%  nn       nn                    [.] softmax
-     0.03%     0.02%  nn       libc.so.6             [.] _mcount
+     0.02%     0.02%  nn       libc.so.6             [.] _mcount
+     0.02%     0.02%  nn       libm.so.6             [.] exp@@GLIBC_2.29
      0.02%     0.00%  nn       libc.so.6             [.] sysmalloc
-     0.02%     0.00%  nn       [unknown]             [.] 0x0000000000001891
      0.01%     0.00%  nn       libc.so.6             [.] __brk
-     0.01%     0.01%  nn       libm.so.6             [.] __log_finite@GLIBC_2.15@plt
-     0.01%     0.01%  nn       nn                    [.] mcount@plt
      0.01%     0.01%  nn       libm.so.6             [.] log@@GLIBC_2.29
-     0.01%     0.01%  nn       libc.so.6             [.] malloc
+     0.01%     0.01%  nn       libm.so.6             [.] __log_finite@GLIBC_2.15@plt
+     0.01%     0.00%  nn       [unknown]             [.] 0x0000000000001891
      0.01%     0.01%  nn       libm.so.6             [.] __exp_finite@GLIBC_2.15@plt
-     0.01%     0.00%  nn       nn                    [.] loadMNISTLabels
-     0.01%     0.01%  nn       nn                    [.] exp@plt
-     0.00%     0.00%  nn       nn                    [.] allocateMatrix
+     0.00%     0.00%  nn       nn                    [.] exp@plt
+     0.00%     0.00%  nn       libc.so.6             [.] malloc
+     0.00%     0.00%  nn       nn                    [.] mcount@plt
+     0.00%     0.00%  nn       libc.so.6             [.] __random_r
      0.00%     0.00%  nn       nn                    [.] log@plt
      0.00%     0.00%  nn       libc.so.6             [.] _IO_file_underflow@@GLIBC_2.2.5
-     0.00%     0.00%  nn       nn                    [.] createNetwork
      0.00%     0.00%  nn       libc.so.6             [.] __underflow
-     0.00%     0.00%  nn       libc.so.6             [.] __random_r
-     0.00%     0.00%  nn       nn                    [.] malloc@plt
-     0.00%     0.00%  nn       ld-linux-x86-64.so.2  [.] do_lookup_x
+     0.00%     0.00%  nn       nn                    [.] allocateMatrix
+     0.00%     0.00%  nn       nn                    [.] createNetwork
+     0.00%     0.00%  nn       nn                    [.] loadMNISTLabels
+     0.00%     0.00%  nn       libc.so.6             [.] __monstartup
      0.00%     0.00%  nn       [unknown]             [k] 0x3b3a004854415052
      0.00%     0.00%  nn       ld-linux-x86-64.so.2  [.] memmove
-     0.00%     0.00%  nn       libc.so.6             [.] _mcleanup
-     0.00%     0.00%  nn       libc.so.6             [.] __open64_nocancel
-     0.00%     0.00%  nn       libc.so.6             [.] _IO_switch_to_get_mode
      0.00%     0.00%  nn       libc.so.6             [.] __restore_rt
+     0.00%     0.00%  nn       libc.so.6             [.] rand
+     0.00%     0.00%  nn       libc.so.6             [.] __memset_avx2_unaligned_erms
+     0.00%     0.00%  nn       nn                    [.] malloc@plt
+     0.00%     0.00%  nn       libc.so.6             [.] __GI___libc_write
      0.00%     0.00%  nn       libc.so.6             [.] __close_nocancel
-     0.00%     0.00%  nn       nn                    [.] rand@plt
-     0.00%     0.00%  nn       libc.so.6             [.] sysmalloc_mmap.isra.0
-     0.00%     0.00%  nn       libc.so.6             [.] __random
-     0.00%     0.00%  nn       libc.so.6             [.] __strstr_generic
-     0.00%     0.00%  nn       [unknown]             [.] 0x2573250073257325
      0.00%     0.00%  nn       ld-linux-x86-64.so.2  [.] _start
 
 
 #
-# (Tip: To adjust path to source files to local file system use perf report --prefix=... --prefix-strip=...)
+# (Tip: To separate samples by time use perf report --sort time,overhead,sym)
 #

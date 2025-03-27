@@ -1,44 +1,4 @@
-#include "nn.h"
-
-// Timer function
-double get_time(clock_t start) {
-    return (double)(clock() - start) / CLOCKS_PER_SEC;
-}
-
-// Allocate memory for a matrix
-double** allocateMatrix(int rows, int cols) {
-    double** mat = (double**)malloc(rows * sizeof(double*));
-    for (int i = 0; i < rows; i++) {
-        mat[i] = (double*)malloc(cols * sizeof(double));
-    }
-    return mat;
-}
-
-// Free allocated matrix memory
-void freeMatrix(double** mat, int rows) {
-    for (int i = 0; i < rows; i++) {
-        free(mat[i]);
-    }
-    free(mat);
-}
-
-// Activation functions
-void relu(double* x, int size) {
-    for (int i = 0; i < size; i++) {
-        x[i] = (x[i] > 0) ? x[i] : 0;
-    }
-}
-
-void softmax(double* x, int size) {
-    double sum = 0;
-    for (int i = 0; i < size; i++) {
-        x[i] = exp(x[i]);
-        sum += x[i];
-    }
-    for (int i = 0; i < size; i++) {
-        x[i] /= sum;
-    }
-}
+#include "neural_network.h"
 
 // Initialize neural network
 NeuralNetwork* createNetwork() {
@@ -154,57 +114,6 @@ void evaluate(NeuralNetwork* net, double** images, double** labels, int numImage
         if (pred == actual) correct++;
     }
     printf("Test Accuracy: %.2f%%\n", (correct / (double)numImages) * 100);
-}
-
-// Read MNIST dataset
-double** loadMNISTImages(const char* filename, int numImages) {
-    FILE* file = fopen(filename, "rb");
-    if (!file) {
-        printf("Error opening %s\n", filename);
-        exit(1);
-    }
-    fseek(file, 16, SEEK_SET);
-    double** images = allocateMatrix(numImages, INPUT_SIZE);
-    for (int i = 0; i < numImages; i++) {
-        for (int j = 0; j < INPUT_SIZE; j++) {
-            unsigned char pixel;
-
-            if (fread(&pixel, sizeof(unsigned char), 1, file) != 1) {
-                fprintf(stderr, "Error: Failed to read pixel\n");
-                fclose(file);
-                exit(EXIT_FAILURE);
-            }
-
-            images[i][j] = pixel / 255.0;
-        }
-    }
-    fclose(file);
-    return images;
-}
-
-double** loadMNISTLabels(const char* filename, int numLabels) {
-    FILE* file = fopen(filename, "rb");
-    if (!file) {
-        printf("Error opening %s\n", filename);
-        exit(1);
-    }
-    fseek(file, 8, SEEK_SET);
-    double** labels = allocateMatrix(numLabels, OUTPUT_SIZE);
-    for (int i = 0; i < numLabels; i++) {
-        unsigned char label;
-
-        if (fread(&label, sizeof(unsigned char), 1, file) != 1) {
-            fprintf(stderr, "Error: Failed to read label\n");
-            fclose(file);
-            exit(EXIT_FAILURE);
-        }
-
-        for (int j = 0; j < OUTPUT_SIZE; j++) {
-            labels[i][j] = (j == label) ? 1.0 : 0.0;
-        }
-    }
-    fclose(file);
-    return labels;
 }
 
 // Free network memory
