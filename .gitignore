@@ -11,3 +11,5 @@ perf.data
 *.ptx
 *.cubin
 *.fatbin
+
+.vscode/
