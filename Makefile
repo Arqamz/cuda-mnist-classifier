@@ -1,7 +1,9 @@
 # Compiler settings
 CC = gcc
+NVCC = nvcc
 CFLAGS = -Wall -g -I./include  # -I./include includes the header files from the include directory
-LDFLAGS = -lm  # Linker flags, adding -lm for math library
+NVCCFLAGS = -Xcompiler "$(CFLAGS)"  # Pass CFLAGS and include directory to NVCC via -Xcompiler
+LDFLAGS = -lm -lcudart -lcuda  # Linker flags, adding -lm for math library and CUDA libraries
 
 # Directories
 SRC_DIR = src
@@ -12,12 +14,14 @@ DATA_DIR = data
 PROFILE_DIR = profile
 
 # File extensions
-SRC_EXT = .c
+C_SRC_EXT = .c
+CU_SRC_EXT = .cu
 OBJ_EXT = .o
 
 # Source files and object files
-SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
-OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%$(SRC_EXT)=$(BUILD_DIR)/%.o)
+C_SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+CU_SRC_FILES = $(wildcard $(SRC_DIR)/*.cu)
+OBJ_FILES = $(C_SRC_FILES:$(SRC_DIR)/%$(C_SRC_EXT)=$(BUILD_DIR)/%.o) $(CU_SRC_FILES:$(SRC_DIR)/%$(CU_SRC_EXT)=$(BUILD_DIR)/%.o)
 
 # Executable name
 EXEC_NAME = mnist
@@ -32,43 +36,32 @@ build: $(EXEC)
 
 $(EXEC): $(OBJ_FILES)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(OBJ_FILES) -o $@ $(LDFLAGS)
+	$(NVCC) $(OBJ_FILES) -o $@ $(LDFLAGS)
 
-# Rule to compile source files into object files
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%$(SRC_EXT)
+# Rule to compile C source files into object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%$(C_SRC_EXT)
 	@mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Rule to compile CUDA source files into object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%$(CU_SRC_EXT)
+	@mkdir -p $(BUILD_DIR)
+	$(NVCC) $(NVCCFLAGS) -c $< -o $@
+
 # Target for cleaning the build and bin directories
 clean:
-	rm -rf $(BUILD_DIR)/*.o $(BIN_DIR)/nn $(PROFILE_DIR)/gmon.out $(PROFILE_DIR)/analysis.txt $(PROFILE_DIR)/perf.data
+	rm -rf $(BUILD_DIR)/*.o $(BIN_DIR)/$(EXEC_NAME) $(PROFILE_DIR)/gmon.out $(PROFILE_DIR)/analysis.txt $(PROFILE_DIR)/perf.data
 
 # Target to run the executable
 run: $(EXEC)
 	$(EXEC)
 
-# Target for profiling with gprof and generating a graph
-gprof: $(EXEC)
-	@mkdir -p $(PROFILE_DIR) $(PROFILE_DIR)/graphs
-	$(CC) $(CFLAGS) -pg $(SRC_FILES) -o $(EXEC) $(LDFLAGS)
-	$(EXEC)
-	# Move this gmon.out to the profile dir
-	mv gmon.out $(PROFILE_DIR)/
-	gprof $(EXEC) $(PROFILE_DIR)/gmon.out > $(PROFILE_DIR)/analysis.txt
-	gprof2dot -f prof $(PROFILE_DIR)/analysis.txt | dot -Tpng -o $(PROFILE_DIR)/graphs/gprof_analysis.png
-
-# Target for performance profiling using perf
-perf: $(EXEC)
+# Target to profile the executable
+profile: $(EXEC)
 	@mkdir -p $(PROFILE_DIR)
-	# Record perf data with call graph
-	perf record -g -o $(PROFILE_DIR)/perf.data -- $(EXEC)
-	# Generate a perf report
-	perf report -i $(PROFILE_DIR)/perf.data > $(PROFILE_DIR)/perf_report.txt
-	# Generate a perf graph
-	perf script -i $(PROFILE_DIR)/perf.data | c++filt | gprof2dot -f perf | dot -Tpng -o $(PROFILE_DIR)/graphs/perf_graph.png
-	# Clean up because idk where this gmon.out keeps coming from
-	@rm -f gmon.out
-
-# Target to run both gprof and perf profiling
-profile: gprof perf
-	@echo "Profiling complete. Gprof analysis: $(PROFILE_DIR)/analysis.txt, Perf report: $(PROFILE_DIR)/perf_report.txt"
+	nsys profile \
+		-o $(PROFILE_DIR)/minimal_profile \
+		-f true \
+		--trace=cuda,osrt \
+		--sample=process-tree \
+		$(EXEC)
