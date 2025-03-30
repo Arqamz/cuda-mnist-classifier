@@ -1,6 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Constants
 #define INPUT_SIZE 784
 #define HIDDEN_SIZE 128
@@ -18,6 +22,10 @@
     #define VERBOSE_PRINT(fmt, ...) printf(fmt, __VA_ARGS__)
 #else
     #define VERBOSE_PRINT(fmt, ...)  // Do nothing when VERBOSE is not defined
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif // CONFIG_H
