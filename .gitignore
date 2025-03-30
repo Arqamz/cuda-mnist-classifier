@@ -2,6 +2,8 @@ bin/
 build/
 data/
 
+*.nsys-rep
+profile/*.sqlite
 gmon.out
 perf.data
 
