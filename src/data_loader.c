@@ -1,6 +1,5 @@
 #include "data_loader.h"
 
-// Read MNIST dataset
 double** loadMNISTImages(const char* filename, int numImages) {
     FILE* file = fopen(filename, "rb");
     if (!file) {
